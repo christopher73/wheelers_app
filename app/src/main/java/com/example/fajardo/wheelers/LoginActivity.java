@@ -23,10 +23,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        final EditText etUsername = (EditText) findViewById(R.id.etName);
+        final EditText etName = (EditText) findViewById(R.id.etUsername);
         final EditText etPassword = (EditText) findViewById(R.id.etPassword);
         final TextView tvRegisterLink = (TextView) findViewById(R.id.tvRegisterLink);
-        final Button bLogin = (Button) findViewById(R.id.bSignIn);
+        final Button bLogin = (Button) findViewById(R.id.bLogin);
 
         tvRegisterLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String username = etUsername.getText().toString();
+                final String name = etName.getText().toString();
                 final String password = etPassword.getText().toString();
 
                 // Response received from the server
@@ -57,8 +57,8 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent(LoginActivity.this, UserAreaActivity.class);
                                 intent.putExtra("name", name);
                                 intent.putExtra("age", age);
-                                intent.putExtra("username", username);
                                 LoginActivity.this.startActivity(intent);
+
                             } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                                 builder.setMessage("Login Failed")
@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 };
 
-                LoginRequest loginRequest = new LoginRequest(username, password, responseListener);
+                LoginRequest loginRequest = new LoginRequest(name, password, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                 queue.add(loginRequest);
             }
